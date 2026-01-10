@@ -337,15 +337,18 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
                 ));
         // 遍历每个分组输出
         StringBuilder sb = new StringBuilder();
+        sb.append("<body><pre>");
+
         groupedData.forEach((platformName, items) -> {
-            sb.append("----").append(platformName).append(" 热搜榜---<br>");
+            sb.append("----").append(platformName).append("热搜榜----\n");
             for (int i = 0; i < items.size(); i++) {
                 String title = items.get(i).get("title").toString();
-                sb.append(i + 1).append("、").append(title).append("<br>");
+                sb.append(i + 1).append("、").append(title).append("\n");
             }
-            sb.append("<br>");  // 不同平台之间空一行
+            sb.append("\n");
         });
 
+        sb.append("</pre></body>");
         return sb.toString();
     }
 
