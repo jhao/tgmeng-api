@@ -337,8 +337,6 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
                 ));
         // 遍历每个分组输出
         StringBuilder sb = new StringBuilder();
-        sb.append("<body><pre>");
-
         groupedData.forEach((platformName, items) -> {
             sb.append("----").append(platformName).append("热搜榜----\n");
             for (int i = 0; i < items.size(); i++) {
@@ -347,8 +345,6 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
             }
             sb.append("\n");
         });
-
-        sb.append("</pre></body>");
         return sb.toString();
     }
 

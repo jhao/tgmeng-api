@@ -5,6 +5,7 @@ import com.tgmeng.common.bean.ResultTemplateBean;
 import com.tgmeng.common.enums.business.LicenseFeatureEnum;
 import com.tgmeng.service.cachesearch.ICacheSearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,10 +45,11 @@ public class CacheSearchController {
     }
 
     // 单平台增量数据推送
-    @RequestMapping("/single/{platformCategory}")
+    @ResponseBody
+    @RequestMapping(value = "/single/{platformCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String getSimplePlatformDataPush(@PathVariable("platformCategory") String platformCategory,
-                                                        @RequestParam(value = "license", required = false) String license,
-                                                        @RequestParam(value = "type", required = false) Integer type) {
+                                            @RequestParam(value = "license", required = false) String license,
+                                            @RequestParam(value = "type", required = false) Integer type) {
         return cacheSearchService.getSimplePlatformDataPush(platformCategory, license, type);
     }
 
