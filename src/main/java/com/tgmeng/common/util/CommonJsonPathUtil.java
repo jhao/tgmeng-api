@@ -143,6 +143,10 @@ public class CommonJsonPathUtil {
                 if (StrUtil.isBlank(url)) {
                     url = "https://tgmeng.com";
                 }
+                // 同花顺热门文章只取前3条
+                if (platform.getPlatformName().equals("同花顺 热门文章")  && !(sort == 1 || sort == 2 || sort == 3)) {
+                    continue;
+                }
                 if (StrUtil.isNotBlank(title) && StrUtil.isNotBlank(url)) {
                     topSearchCommonVOS.add(new TopSearchCommonVO.DataInfo(title, hotScore, url, image, author, desc, type, publishTime, commentCount, startTime, endTime, showTime, sort));
                 }

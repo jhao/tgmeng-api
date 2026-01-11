@@ -361,7 +361,6 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
         // 客户不要同花顺首页的那个榜单，这里排除一下
         hotList = hotList.stream()
                 .filter(map -> !"同花顺".equals(map.get("platformName")))
-                .filter(map -> !"同花顺 热门文章".equals(map.get("platformName")))
                 .collect(Collectors.toList());
         return ResultTemplateBean.success(hotList);
     }
