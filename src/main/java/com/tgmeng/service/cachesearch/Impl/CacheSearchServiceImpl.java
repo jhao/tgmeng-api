@@ -338,7 +338,7 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
         // 遍历每个分组输出
         StringBuilder sb = new StringBuilder();
         groupedData.forEach((platformName, items) -> {
-            sb.append("----").append(platformName).append("热搜榜----\n");
+            sb.append("----").append(platformName).append(" 热搜榜----\n");
             for (int i = 0; i < items.size(); i++) {
                 String title = items.get(i).get("title").toString();
                 sb.append(i + 1).append("、").append(title).append("\n");
@@ -361,6 +361,7 @@ public class CacheSearchServiceImpl implements ICacheSearchService {
         // 客户不要同花顺首页的那个榜单，这里排除一下
         hotList = hotList.stream()
                 .filter(map -> !"同花顺".equals(map.get("platformName")))
+                .filter(map -> !"同花顺 热门文章".equals(map.get("platformName")))
                 .collect(Collectors.toList());
         return ResultTemplateBean.success(hotList);
     }
