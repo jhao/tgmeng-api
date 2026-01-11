@@ -23,7 +23,7 @@ jobs:
     env:
       SERVER_HOST: ${{ secrets.SERVER_IP }}                          # 服务器 IP  在https://github.com/用户名/仓库名/settings/secrets/actions 里设置 Repository secrets
       SERVER_USER: ${{ secrets.SERVER_USER }}                        # 服务器用户名
-      SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}                # 服务器密码
+      SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}                # 服务器密码
       SERVER_PORT: 22                                                # 服务器端口
       JAVA_VERSION: '21'                                             # java版本
       REMOTE_APP_DIR: /home/${{ secrets.SERVER_USER }}/tgmeng-api    # 部署目录，我是root用户登录，所以这里就会变成/home/root/tgmeng-api
@@ -86,7 +86,7 @@ jobs:
         with:
           host: ${{ env.SERVER_HOST }}
           username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          key: ${{ env.SERVER_SSH_KEY }}
           port: ${{ env.SERVER_PORT }}
           script: |
             echo "[$(date)] 服务器连接成功"
@@ -97,7 +97,7 @@ jobs:
         with:
           host: ${{ env.SERVER_HOST }}
           username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          key: ${{ env.SERVER_SSH_KEY }}
           port: ${{ env.SERVER_PORT }}
           envs: REMOTE_APP_DIR,JAR_NAME
           script: |
@@ -155,7 +155,7 @@ jobs:
         with:
           host: ${{ env.SERVER_HOST }}
           username: ${{ env.SERVER_USER }}
-          password: ${{ env.SERVER_PASSWORD }}
+          key: ${{ env.SERVER_SSH_KEY }}
           port: ${{ env.SERVER_PORT }}
           envs: DOCKERHUB_USERNAME,DOCKERHUB_TOKEN,DOCKER_IMAGE_NAME,DOCKER_IMAGE_TAG,CONTAINER_NAME,PORT,REMOTE_APP_DIR,MY_CONFIG_AI_AI_PLATFORM_CONFIG,MY_CONFIG_ADMIN_PASSWORD,MY_CONFIG_PROXY_CONFIG,MY_CONFIG_GOOGLE_ADS_CLOSE_PASSWORD,MY_CONFIG_UMAMI_WEBSITE_TGMENG_COM
           script: |

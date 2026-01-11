@@ -217,7 +217,7 @@ MY_CONFIG_YOUTUBE_KEY=AIzaSyCX494YE2KiRnmGT6Y8odk4SBnlTwIWH4A   # 调用youtubea
 ```shell
 SERVER_HOST      # 你的服务器IP
 SERVER_USER      # 你的服务器用户名
-SERVER_PASSWORD  # 你的服务器密码
+SERVER_SSH_KEY  # 你的服务器密钥
 SERVER_PORT      # 你的服务器端口
 REMOTE_APP_DIR   # 你的要部署的目录，这个有默认值:/home/用户名/tgmeng-api，可以这里配置覆盖
 # 流程是先打包镜像到dockerHub，然后从dockerHub里拉取镜像来启动，所以需要配置dockerHub的信息
