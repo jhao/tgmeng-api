@@ -24,7 +24,7 @@ jobs:
       SERVER_HOST: ${{ secrets.SERVER_IP }}                          # 服务器 IP  在https://github.com/用户名/仓库名/settings/secrets/actions 里设置 Repository secrets
       SERVER_USER: ${{ secrets.SERVER_USER }}                        # 服务器用户名
       SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}                # 服务器密码
-      SERVER_PORT: 22                                                # 服务器端口
+      SERVER_PORT: 60022                                                # 服务器端口
       JAVA_VERSION: '21'                                             # java版本
       REMOTE_APP_DIR: /home/${{ secrets.SERVER_USER }}/tgmeng-api    # 部署目录，我是root用户登录，所以这里就会变成/home/root/tgmeng-api
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}          # DockerHub 用户名
