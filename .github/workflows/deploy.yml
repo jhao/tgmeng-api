@@ -26,7 +26,7 @@ jobs:
       SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}                # 服务器密码
       SERVER_PORT: 22                                                # 服务器端口
       JAVA_VERSION: '21'                                             # java版本
-      REMOTE_APP_DIR: /home/${{ secrets.SERVER_USER }}/tgmeng-api    # 部署目录，我是root用户登录，所以这里就会变成/home/root/tgmeng-api
+      REMOTE_APP_DIR: /data/tgmeng/tgmeng-api    # 部署目录，我是root用户登录，所以这里就会变成/home/root/tgmeng-api
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}          # DockerHub 用户名
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}                # DockerHub 访问令牌
       DOCKER_IMAGE_NAME: tgmeng-api                                  # DockerHub 镜像名称（也就是dockerHub里面的仓库的名字）
@@ -196,8 +196,7 @@ jobs:
             echo "[$(date)] 启动新容器..."
             docker run -d \
               --name ${CONTAINER_NAME} \
-              --restart unless-stopped \
-              -p ${PORT}:${PORT} \
+              -p 5001:4399 \
               -v ${REMOTE_APP_DIR}/logs:/app/logs \
               -v ${REMOTE_APP_DIR}/data:/app/data \
               -v ${REMOTE_APP_DIR}/heapdumps:/app/heapdumps \
@@ -207,8 +206,9 @@ jobs:
               -e MY_CONFIG_GOOGLE_ADS_CLOSE_PASSWORD="${MY_CONFIG_GOOGLE_ADS_CLOSE_PASSWORD}" \
               -e MY_CONFIG_UMAMI_WEBSITE_TGMENG_COM="${MY_CONFIG_UMAMI_WEBSITE_TGMENG_COM}" \
               -e MY_CONFIG_PROXY_CONFIG="${MY_CONFIG_PROXY_CONFIG}" \
-              -e JAVA_OPTS="-Xms1536m -Xmx2048m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/app/heapdumps -XX:ErrorFile=/app/logs/hs_err_%p.log" \
+              -e JAVA_OPTS="-Xms128m -Xmx256m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/app/heapdumps -XX:ErrorFile=/app/logs/hs_err_%p.log" \
               -e TZ=Asia/Shanghai \
+              -e MY_CONFIG_LICENSE_ENABLED=true \
               ${DOCKERHUB_USERNAME}/${DOCKER_IMAGE_NAME}:latest
             
             # 等待容器启动
