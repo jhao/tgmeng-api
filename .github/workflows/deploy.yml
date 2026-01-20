@@ -39,6 +39,17 @@ jobs:
       MY_CONFIG_PROXY_CONFIG: ${{ secrets.MY_CONFIG_PROXY_CONFIG }}
 
     steps:
+      # 测试服务器连接
+      - name: 测试服务器连接
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USER }}
+          key: ${{ env.SERVER_SSH_KEY }}
+          port: ${{ env.SERVER_PORT }}
+          script: |
+            echo "[$(date)] 服务器连接成功"
+  
       # 获取代码并构建项目
       - name: 拉取项目代码
         uses: actions/checkout@v4
@@ -79,17 +90,6 @@ jobs:
           echo "TAG_NAME=${VERSION}" >> $GITHUB_ENV
           echo "ARTIFACT_ID=${ARTIFACT_ID}" >> $GITHUB_ENV
           echo "DOCKER_IMAGE_TAG=${VERSION}" >> $GITHUB_ENV
-
-      # 测试服务器连接
-      - name: 测试服务器连接
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ env.SERVER_HOST }}
-          username: ${{ env.SERVER_USER }}
-          key: ${{ env.SERVER_SSH_KEY }}
-          port: ${{ env.SERVER_PORT }}
-          script: |
-            echo "[$(date)] 服务器连接成功"
 
       # 上传 在服务器创建所需目录，删除旧文件
       - name: 创建所需目录并清理旧文件
