@@ -230,7 +230,7 @@ jobs:
             MAX_RETRIES=10
             RETRY_INTERVAL=5
             
-            echo "[$(date)] 开始健康检查... $(HEALTH_URL)"
+            echo "[$(date)] 开始健康检查... url:${HEALTH_URL}"
             for i in $(seq 1 ${MAX_RETRIES}); do
               STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" "${HEALTH_URL}" || echo "000")
               if [ "${STATUS_CODE}" -eq 200 ]; then
