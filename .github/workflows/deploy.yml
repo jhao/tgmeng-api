@@ -197,7 +197,7 @@ jobs:
             echo "[$(date)] 启动新容器..."
             docker run -d \
               --name ${CONTAINER_NAME} \
-              -p ${CONTAINER_PORT}:${PORT} \
+              -p ${{ env.CONTAINER_PORT }}:${PORT} \
               -v ${REMOTE_APP_DIR}/logs:/app/logs \
               -v ${REMOTE_APP_DIR}/data:/app/data \
               -v ${REMOTE_APP_DIR}/heapdumps:/app/heapdumps \
@@ -226,7 +226,7 @@ jobs:
             docker ps | grep ${CONTAINER_NAME}
             
             # 健康检查
-            HEALTH_URL="http://localhost:${CONTAINER_PORT}/api/actuator/health"
+            HEALTH_URL="http://localhost:${{ env.CONTAINER_PORT }}/api/actuator/health"
             MAX_RETRIES=10
             RETRY_INTERVAL=5
             
