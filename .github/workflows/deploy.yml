@@ -25,6 +25,7 @@ jobs:
       SERVER_USER: ${{ secrets.SERVER_USER }}                        # 服务器用户名
       SERVER_SSH_KEY: ${{ secrets.SERVER_SSH_KEY }}                # 服务器密码
       SERVER_PORT: 22                                                # 服务器端口
+      CONTAINER_PORT: ${{ secrets.CONTAINER_PORT }}                  # 容器暴露端口
       JAVA_VERSION: '21'                                             # java版本
       REMOTE_APP_DIR: /data/tgmeng/tgmeng-api    # 部署目录，我是root用户登录，所以这里就会变成/home/root/tgmeng-api
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}          # DockerHub 用户名
@@ -196,11 +197,10 @@ jobs:
             echo "[$(date)] 启动新容器..."
             docker run -d \
               --name ${CONTAINER_NAME} \
-              -p 5001:4399 \
+              -p ${CONTAINER_PORT}:${PORT} \
               -v ${REMOTE_APP_DIR}/logs:/app/logs \
               -v ${REMOTE_APP_DIR}/data:/app/data \
               -v ${REMOTE_APP_DIR}/heapdumps:/app/heapdumps \
-              -e SERVER_PORT=${PORT} \
               -e MY_CONFIG_AI_AI_PLATFORM_CONFIG="${MY_CONFIG_AI_AI_PLATFORM_CONFIG}" \
               -e MY_CONFIG_ADMIN_PASSWORD="${MY_CONFIG_ADMIN_PASSWORD}" \
               -e MY_CONFIG_GOOGLE_ADS_CLOSE_PASSWORD="${MY_CONFIG_GOOGLE_ADS_CLOSE_PASSWORD}" \
@@ -226,7 +226,7 @@ jobs:
             docker ps | grep ${CONTAINER_NAME}
             
             # 健康检查
-            HEALTH_URL="http://localhost:${PORT}/api/actuator/health"
+            HEALTH_URL="http://localhost:${CONTAINER_PORT}/api/actuator/health"
             MAX_RETRIES=10
             RETRY_INTERVAL=5
             
