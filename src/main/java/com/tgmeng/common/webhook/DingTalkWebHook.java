@@ -74,7 +74,7 @@ public class DingTalkWebHook {
         List<String> jsonBodys = new ArrayList<>();
 
         for (List<Map<String, Object>> subNewHots : splitNewHotList) {
-            StringBuilder md = new StringBuilder("### 🍭 糖果梦热榜 🍭\n<br>");
+            StringBuilder md = new StringBuilder("### 🍭 热榜 🍭\n<br>");
             for (int i = 0; i < subNewHots.size(); i++) {
                 Map<String, Object> hot = subNewHots.get(i);
                 md.append(i + 1).append(". ")
@@ -87,7 +87,7 @@ public class DingTalkWebHook {
             md.append("📱 共计：").append(subNewHots.size()).append(" 条<br>");
             md.append("📰 订阅：").append(String.join(", ", keywords)).append("<br>");
             md.append("⏰ 时间：").append(TimeUtil.getCurrentTimeFormat(TimeUtil.defaultPattern)).append("<br>");
-            md.append("🙋🏻‍♂️ 来源：").append("[糖果梦热榜：https://tgmeng.com](https://tgmeng.com)<br>");
+            md.append("🙋🏻‍♂️ 来源：").append("[热榜：https://n.haoj.in](https://n.haoj.in)<br>");
             jsonBodys.add(md.toString());
         }
         return jsonBodys;
